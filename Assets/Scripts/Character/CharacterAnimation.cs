@@ -23,6 +23,22 @@ public class CharacterAnimation : MonoBehaviourExtension
     [Header("[0]：待機　[1]：右足上げ　[2]：左足上げ")]
     Sprite[] LeftAnims;
 
+    [SerializeField, Header("右斜め上移動のアニメーション")]
+    [Header("[0]：待機　[1]：右足上げ　[2]：左足上げ")]
+    Sprite[] RightUpTiltAnims;
+
+    [SerializeField, Header("左斜め上移動のアニメーション")]
+    [Header("[0]：待機　[1]：右足上げ　[2]：左足上げ")]
+    Sprite[] LeftUpTiltAnims;
+
+    [SerializeField, Header("右斜め下移動のアニメーション")]
+    [Header("[0]：待機　[1]：右足上げ　[2]：左足上げ")]
+    Sprite[] RightDownTiltAnims;
+
+    [SerializeField, Header("左斜め下移動のアニメーション")]
+    [Header("[0]：待機　[1]：右足上げ　[2]：左足上げ")]
+    Sprite[] LeftDownTiltAnims;
+
     SpriteRenderer Renderer;
 
     //現在のアニメーション番号
@@ -45,26 +61,58 @@ public class CharacterAnimation : MonoBehaviourExtension
 	
 	void Update ()
     {
-        //上移動
-		if(InputManager.Vertical > 0.0f)
+        //上下移動の処理
+        if(InputManager.Vertical > 0.0f || InputManager.Vertical < 0.0f)
         {
-            MoveAnimation(ENUMS.MOVETYPE.UP);
+            if(InputManager.Vertical > 0.0f)
+            {
+                //右斜め上移動
+                if (InputManager.Horizontal > 0.0f)
+                {
+                    MoveAnimation(ENUMS.MOVETYPE.RIGHTUP);
+                }
+                //左斜め上移動
+                else if (InputManager.Horizontal < 0.0f)
+                {
+                    MoveAnimation(ENUMS.MOVETYPE.LEFTUP);
+                }
+                //上移動
+                else
+                {
+                    MoveAnimation(ENUMS.MOVETYPE.UP);
+                }
+            }
+            else if(InputManager.Vertical < 0.0f)
+            {
+                //右斜め下移動
+                if (InputManager.Horizontal > 0.0f)
+                {
+                    MoveAnimation(ENUMS.MOVETYPE.RIGHTDOWN);
+                }
+                //左斜め下移動
+                else if (InputManager.Horizontal < 0.0f)
+                {
+                    MoveAnimation(ENUMS.MOVETYPE.LEFTDOWN);
+                }
+                //下移動
+                else
+                {
+                    MoveAnimation(ENUMS.MOVETYPE.DOWN);
+                }
+            }          
         }
-        //下移動
-        else if(InputManager.Vertical < 0.0f)
+        //左右移動の処理
+        else if(InputManager.Horizontal > 0.0f || InputManager.Horizontal < 0.0f)
         {
-            MoveAnimation(ENUMS.MOVETYPE.DOWN);
-        }
-        //右移動
-        else if(InputManager.Horizontal > 0.0f)
-        {
-            MoveAnimation(ENUMS.MOVETYPE.RIGHT);
-        }
-        //左移動
-        else if (InputManager.Horizontal < 0.0f)
-        {
-            MoveAnimation(ENUMS.MOVETYPE.LEFT);
-        }
+            if(InputManager.Horizontal > 0.0f)
+            {
+                MoveAnimation(ENUMS.MOVETYPE.RIGHT);
+            }
+            else if(InputManager.Horizontal < 0.0f)
+            {
+                MoveAnimation(ENUMS.MOVETYPE.LEFT);
+            }
+        }       
     }
 
     /// <summary>
@@ -105,6 +153,22 @@ public class CharacterAnimation : MonoBehaviourExtension
 
                 case ENUMS.MOVETYPE.LEFT:
                     SetAnimSprites(LeftAnims);
+                    break;
+
+                case ENUMS.MOVETYPE.RIGHTUP:
+                    SetAnimSprites(RightUpTiltAnims);
+                    break;
+
+                case ENUMS.MOVETYPE.RIGHTDOWN:
+                    SetAnimSprites(RightDownTiltAnims);
+                    break;
+
+                case ENUMS.MOVETYPE.LEFTUP:
+                    SetAnimSprites(LeftUpTiltAnims);
+                    break;
+
+                case ENUMS.MOVETYPE.LEFTDOWN:
+                    SetAnimSprites(LeftDownTiltAnims);
                     break;
             }
         }

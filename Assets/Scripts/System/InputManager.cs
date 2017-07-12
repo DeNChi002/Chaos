@@ -45,7 +45,7 @@ public class InputManager : MonoBehaviour
 
         btn_Triangle = Input.GetButtonDown("Jump");
 
-        //KeyDebugWindow();
+        KeyDebugWindow();
     }
 
     /// <summary>
@@ -90,6 +90,8 @@ public class InputManager : MonoBehaviour
     //キー入力のデバッグログを出力するメソッド
     void KeyDebugWindow()
     {
+        Debug.Log("Horizontal"+Horizontal);
+        Debug.Log("Vertical"+Vertical);
         #region 右スティック、十字キーのデバッグ
         if (Horizontal > 0.0f)
         {
@@ -108,17 +110,5 @@ public class InputManager : MonoBehaviour
             Debug.Log("Down");
         }
         #endregion
-
-        //ボタン用のデバッグ処理
-        if (btn_Square) Debug.Log("アイテム切り替え");
-
-        if (btn_Cross) Debug.Log("キャラ切り替え");
-
-        if (btn_Circle) Debug.Log("物を持つ");
-
-        if (btn_Triangle) Debug.Log("追従命令");
-
-        if (btn_Start) Debug.Log("START");
-
     }
 }

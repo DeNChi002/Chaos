@@ -14,5 +14,9 @@ public class ENUMS : MonoBehaviour
         DOWN,
         RIGHT,
         LEFT,
+        RIGHTUP,
+        RIGHTDOWN,
+        LEFTUP,
+        LEFTDOWN
     }
 }
